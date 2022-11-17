@@ -1,30 +1,23 @@
 "use client";
-import { useEffect, useState } from "react";
-import { shipments } from "../mocks/data/shipmentData";
+import { useState } from "react";
 import { Shipment } from "../types/Shipment.types";
 import styles from "./page.module.css";
 import ShipmentResults from "./ShipmentResults";
 
-async function getSearchResults() {
-  const response = await fetch("http://localhost:3001/search");
-  const results = await response.json();
-  return results;
-}
-
 export default function Home() {
   const [search, setSearch] = useState("");
-  // const [shipments, setShipments] = useState<Shipment[]>([]);
+  const [shipments, setShipments] = useState<Shipment[]>([]);
 
+  // Keeping here merely for reference of how to do a fetch on initial load on the client.
   // useEffect(() => {
   //   async function fetchSearchResults() {
-  //     setTimeout(async () => {
-  //       const results = await getSearchResults();
-  //       setShipments(results);
-  //     }, 1000);
-  //     debugger;
+  //     const response = await fetch("/api/shipments");
+  //     const results = await response.json();
+  //     setShipments(results);
   //   }
   //   fetchSearchResults();
-  // });
+  //   // The empty dependency array [] means this effect will only run once
+  // }, []);
 
   // Deriving state
   const matchingShipments = shipments.filter((shipment) => {
@@ -45,7 +38,15 @@ export default function Home() {
     <div>
       <input
         type="search"
-        onChange={(event) => setSearch(event.target.value)}
+        onChange={async (event) => {
+          setSearch(event.target.value);
+          // NOTE: Must use event.target.value here because setSearch is async, and thus, not updated yet.
+          const response = await fetch(
+            "/api/shipments?search=" + event.target.value
+          );
+          const results = await response.json();
+          setShipments(results);
+        }}
         value={search}
       />
       {renderResults()}
