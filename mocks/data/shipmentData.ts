@@ -2,7 +2,7 @@ import { Shipment } from "../../types/Shipment.types";
 
 export const shipments: Shipment[] = [
   {
-    proNumber: "1239",
+    proNumber: "1",
     weight: 100,
     pallets: 1,
     pieces: 1,
@@ -12,7 +12,7 @@ export const shipments: Shipment[] = [
     status: "docked",
   },
   {
-    proNumber: "999",
+    proNumber: "2'",
     weight: 200,
     pallets: 12,
     pieces: 11,
