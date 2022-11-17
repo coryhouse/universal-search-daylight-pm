@@ -40,12 +40,16 @@ export default function Home() {
         type="search"
         onChange={async (event) => {
           setSearch(event.target.value);
-          // NOTE: Must use event.target.value here because setSearch is async, and thus, not updated yet.
-          const response = await fetch(
-            "/api/shipments?search=" + event.target.value
-          );
-          const results = await response.json();
-          setShipments(results);
+          if (event.target.value) {
+            // NOTE: Must use event.target.value here because setSearch is async, and thus, not updated yet.
+            const response = await fetch(
+              "/api/shipments?search=" + event.target.value
+            );
+            const results = await response.json();
+            setShipments(results);
+          } else {
+            setShipments([]);
+          }
         }}
         value={search}
       />
