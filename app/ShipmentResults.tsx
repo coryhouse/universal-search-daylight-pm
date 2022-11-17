@@ -20,13 +20,16 @@ export default function ShipmentResults({
             <th>
               <input
                 type="checkbox"
+                id="select-all"
                 onChange={(event) =>
                   setSelectedShipments(
                     event.target.checked ? matchingShipments : []
                   )
                 }
               />{" "}
-              <label>Select all</label>
+              <label htmlFor="select-all" hidden>
+                Select all
+              </label>
             </th>
             <th>Pro Number</th>
             <th>Plts | Pcs</th>
@@ -43,6 +46,7 @@ export default function ShipmentResults({
               <td>
                 <input
                   type="checkbox"
+                  id={match.proNumber + "-checkbox"}
                   checked={selectedShipments.some(
                     (s) => s.proNumber === match.proNumber
                   )}
@@ -54,7 +58,9 @@ export default function ShipmentResults({
                     );
                   }}
                 />
-                <label>Select {match.proNumber}</label>
+                <label htmlFor={match.proNumber + "-checkbox"} hidden>
+                  Select {match.proNumber}
+                </label>
               </td>
               <td>{match.proNumber}</td>
               <td>{match.pallets}</td>
