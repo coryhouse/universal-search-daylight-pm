@@ -1,8 +1,8 @@
-import { Shipment } from "../../app/layout";
+import { Shipment } from "../../types/Shipment.types";
 
 export const shipments: Shipment[] = [
   {
-    proNumber: "123",
+    proNumber: "1239",
     weight: 100,
     pallets: 1,
     pieces: 1,
