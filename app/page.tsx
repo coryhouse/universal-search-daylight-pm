@@ -38,6 +38,7 @@ export default function Home() {
   return (
     <div>
       <input
+        placeholder="Enter proNumber"
         type="search"
         onChange={async (event) => {
           setSearch(event.target.value);
