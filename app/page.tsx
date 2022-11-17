@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { getShipments } from "../services/shipmentsService";
 import { Shipment } from "../types/Shipment.types";
 import styles from "./page.module.css";
 import ShipmentResults from "./ShipmentResults";
@@ -42,10 +43,7 @@ export default function Home() {
           setSearch(event.target.value);
           if (event.target.value) {
             // NOTE: Must use event.target.value here because setSearch is async, and thus, not updated yet.
-            const response = await fetch(
-              "/api/shipments?search=" + event.target.value
-            );
-            const results = await response.json();
+            const results = await getShipments(event.target.value);
             setShipments(results);
           } else {
             setShipments([]);
