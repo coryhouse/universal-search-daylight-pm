@@ -1,37 +1,21 @@
 import "./globals.css";
 
-type SearchResult = {
-  proNumber: string;
-  weight: number;
-  pallets: number;
-  pieces: number;
-  pickupDate: string;
-  serviceDate: string;
-  shipmentTags: Array<string>;
-  status: string;
-};
+async function getSearchResults() {
+  const response = await fetch("http://localhost:3001/search");
+  const results = await response.json();
+  return results;
+}
 
-const searchResults: SearchResult[] = [
-  {
-    proNumber: "123456789",
-    weight: 100,
-    pallets: 1,
-    pieces: 1,
-    pickupDate: "2021-01-01",
-    serviceDate: "2021-01-01",
-    shipmentTags: ["tag1", "tag2"],
-    status: "status",
-  },
-];
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  function renderResults(result: SearchResult) {
-    return <div key={result.proNumber}>{result.proNumber}</div>;
+  if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
+    require("../mocks");
   }
+
+  // const searchResults = await getSearchResults();
 
   return (
     <html lang="en">
@@ -40,13 +24,7 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body>
-        <div>
-          <input type="search" />
-          {searchResults.map(renderResults)}
-        </div>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
