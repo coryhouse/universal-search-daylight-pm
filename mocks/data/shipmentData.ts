@@ -12,7 +12,7 @@ export const shipments: Shipment[] = [
     status: "docked",
   },
   {
-    proNumber: "2'",
+    proNumber: "2",
     weight: 200,
     pallets: 12,
     pieces: 11,
