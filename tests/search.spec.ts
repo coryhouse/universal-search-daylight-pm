@@ -19,4 +19,9 @@ test("should display search results", async ({ page }) => {
   );
 
   await expect(page.getByRole("button", { name: "1" })).toHaveCount(1);
+  await expect(page.getByRole("heading", { name: "PRO #1" })).toHaveCount(1);
+  await expect(
+    page.getByRole("heading", { name: "Shipment Details" })
+  ).toHaveCount(1);
+  await expect(page.getByText("Total Pieces: 1")).toHaveCount(1);
 });
