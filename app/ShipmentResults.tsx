@@ -1,5 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import Button from "../shared/Button";
 import { Shipment } from "../types/Shipment.types";
 
 type ShipmentResults = {
@@ -73,11 +75,11 @@ export default function ShipmentResults({
           ))}
         </tbody>
       </table>
-      <button
-        type="button"
+      <Button
+        variant="primary"
         onClick={() => {
           if (selectedShipments.length === 0) {
-            alert("Select at least one shipment");
+            toast.error("Select at least one shipment");
             return;
           }
 
@@ -89,7 +91,7 @@ export default function ShipmentResults({
         }}
       >
         VIEW SHIPMENT DETAILS
-      </button>
+      </Button>
     </>
   );
 }
